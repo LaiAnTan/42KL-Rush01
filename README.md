@@ -10,4 +10,4 @@ python3 rush01.py "col1up col2up col3up col4up col1down col2down col3down col4do
 ```
 refer to picture below:
 
-![Legend](image.png)
+![Guide](guide.png)
