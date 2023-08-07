@@ -6,8 +6,7 @@ Might do constraint propogation if I'm feeling like it
 
 ## Usage
 ```
-python3 rush01.py "col1up col2up col3up col4up col1down col2down col3down col4down row1left row2left
-row3left row4left row1right row2right row3right row4right"
+python3 rush01.py "col1up col2up col3up col4up col1down col2down col3down col4down row1left row2left row3left row4left row1right row2right row3right row4right"
 ```
 refer to picture below:
 
