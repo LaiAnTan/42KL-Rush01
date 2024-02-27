@@ -10,6 +10,7 @@ class SkyscraperSolver:
         [row1r, row2r, row3r, row4r], (right)
     """
     def __init__(self, constraints):
+        self.traversed = 0
         self.constraints = constraints
         self.solution = [
                         [1, 1, 1, 1],
@@ -88,11 +89,15 @@ class SkyscraperSolver:
                 return False
         return True
     
+    # O(4 ^ n)
     def solve(self, x_pos, y_pos, value_test):
+        
         if value_test > 4: # value larger than 4 -> all values tested -> flag as wrong to backtrack
             self.solution[y_pos][x_pos] = 0
             return 0
+        
         self.solution[y_pos][x_pos] = value_test # set value to test inside solution
+        self.traversed += 1
         bt = 0
         
         if y_pos == 3 and not self.isValidCol(x_pos): # if rows all valid and current column not valid, try diff value
@@ -106,8 +111,10 @@ class SkyscraperSolver:
                     return 1
                 bt = self.solve(0, y_pos + 1, 1) # if curr row valid check next row
                 
+        
         if bt: # pull result (either 1 - solution found or 0 - fail) up
             return bt
+        
         return self.solve(x_pos, y_pos, value_test + 1) # if row not valid, try diff value
         
 
@@ -123,14 +130,17 @@ def handleArgv(argv):
 def main():
     constraints = handleArgv(argv)
     if not constraints:
+        print("Error")
         return
 
     solver = SkyscraperSolver(constraints)
-    solver.solve(0, 0, 1)
-    solver.prettyPrint()
-    solver.validateSolution()
     
-    print(solver.isValidCol(3))
+    if (solver.solve(0, 0, 1) == 1 and solver.validateSolution() == True):
+        solver.printSolution()
+        print(f"States explored: {solver.traversed}")
+    else:
+        print("Error")
+        print(f"States explored: {solver.traversed}")
 
 if __name__ == "__main__":
     main()
